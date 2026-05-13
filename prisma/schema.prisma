@@ -1,0 +1,95 @@
+// prisma/schema.prisma
+// Railway PostgreSQL — run `npm run db:push` to sync
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── CLIENTS ───────────────────────────────────────────────
+// Your SME clients who log into the web app
+model Client {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  company      String?
+  passwordHash String   @map("password_hash")
+  isActive     Boolean  @default(true) @map("is_active")
+  plan         String   @default("starter") // starter | pro | enterprise
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  // Relations
+  usageLogs    UsageLog[]
+  savedLeads   SavedLead[]
+  savedOutputs SavedOutput[]
+  faqDocuments FaqDocument[]
+
+  @@map("clients")
+}
+
+// ── USAGE LOGS ────────────────────────────────────────────
+// Every AI call logged per client (for billing & analytics)
+model UsageLog {
+  id             String   @id @default(cuid())
+  userId         String   @map("user_id")
+  module         String   // content | leads | chatbot | ops | proposal
+  promptLength   Int?     @map("prompt_length")
+  responseLength Int?     @map("response_length")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  client Client? @relation(fields: [userId], references: [id])
+
+  @@map("usage_logs")
+}
+
+// ── SAVED LEADS ───────────────────────────────────────────
+model SavedLead {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  company   String?
+  contact   String?
+  area      String?
+  employees String?
+  revenue   String?
+  trigger   String?
+  icpScore  Int?     @map("icp_score")
+  outreach  String?  // personalised opener if generated
+  status    String   @default("new") // new | contacted | replied | converted
+  createdAt DateTime @default(now()) @map("created_at")
+
+  client Client @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("saved_leads")
+}
+
+// ── SAVED OUTPUTS ─────────────────────────────────────────
+model SavedOutput {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  module    String
+  title     String?
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  client Client @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("saved_outputs")
+}
+
+// ── FAQ DOCUMENTS ─────────────────────────────────────────
+model FaqDocument {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  content   String
+  name      String   @default("FAQ Document")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  client Client @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("faq_documents")
+}
