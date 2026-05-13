@@ -53,8 +53,8 @@ export default function ChatbotPage() {
           <MessageCircle size={16} className="text-blue-500" />
           <span className="text-xs font-medium text-blue-600 uppercase tracking-wide">Module 3</span>
         </div>
-        <h1 className="module-title">CX Chatbot</h1>
-        <p className="module-sub">Upload your FAQ and get a 24/7 AI chatbot for customer enquiries.</p>
+        <h1 className="module-title">Customer Service Automation</h1>
+        <p className="module-sub">AI handles customer enquiries 24/7 — your team only deals with complex cases that need human judgment.</p>
       </div>
 
       <div className="flex gap-1 p-1 bg-gray-100 rounded-lg mb-6 w-fit">

@@ -4,10 +4,10 @@ import Link from "next/link";
 import { FileText, Users, MessageCircle, Settings, ArrowRight, Zap } from "lucide-react";
 
 const MODULES = [
-  { href:"/content",  icon:FileText,       color:"bg-purple-50 text-purple-600 border-purple-100", title:"Content Engine",   desc:"Generate LinkedIn posts, cold emails, proposals and repurpose content in seconds.",          actions:["LinkedIn post","Cold email","Proposal draft","Repurpose"] },
-  { href:"/leads",    icon:Users,          color:"bg-teal-50 text-teal-600 border-teal-100",       title:"Lead Generator",   desc:"Find Singapore leads matching your ICP and write personalised outreach messages.",            actions:["Find SG leads","ICP scoring","Write opener","Export CSV"] },
-  { href:"/chatbot",  icon:MessageCircle,  color:"bg-blue-50 text-blue-600 border-blue-100",       title:"CX Chatbot",       desc:"Upload your FAQ and get a 24/7 AI chatbot that handles customer enquiries automatically.",     actions:["Upload FAQ","Test chatbot","Embed widget","Telegram"] },
-  { href:"/ops",      icon:Settings,       color:"bg-amber-50 text-amber-600 border-amber-100",    title:"Ops Tools",        desc:"Process invoices, summarise contracts, and turn meeting notes into action items instantly.",   actions:["Process docs","Meeting notes","Client check-in","Flag issues"] },
+  { href:"/content",  icon:FileText,       color:"bg-purple-50 text-purple-600 border-purple-100", title:"Content & Marketing Automation",   desc:"Generate LinkedIn posts, cold emails, proposals and repurpose content in seconds.",          actions:["LinkedIn post","Cold email","Proposal draft","Repurpose"] },
+  { href:"/leads",    icon:Users,          color:"bg-teal-50 text-teal-600 border-teal-100",       title:"Lead Generation Automation",   desc:"Find Singapore leads matching your ICP and write personalised outreach messages.",            actions:["Find SG leads","ICP scoring","Write opener","Export CSV"] },
+  { href:"/chatbot",  icon:MessageCircle,  color:"bg-blue-50 text-blue-600 border-blue-100",       title:"Customer Service Automation",       desc:"Upload your FAQ and get a 24/7 AI chatbot that handles customer enquiries automatically.",     actions:["Upload FAQ","Test chatbot","Embed widget","Telegram"] },
+  { href:"/ops",      icon:Settings,       color:"bg-amber-50 text-amber-600 border-amber-100",    title:"Operations Automation",        desc:"Process invoices, summarise contracts, and turn meeting notes into action items instantly.",   actions:["Process docs","Meeting notes","Client check-in","Flag issues"] },
 ];
 
 function getGreeting() {
@@ -34,17 +34,21 @@ export default function Dashboard() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-2 gap-4 mb-4">
         {[
-          { label: "Modules available", value: "4" },
-          { label: "AI model", value: "Claude" },
-          { label: "Plan", value: session?.user?.plan || "starter" },
+          { label: "Workflow modules", value: "4" },
+          { label: "Powered by", value: "OpenAI" },
         ].map(s => (
           <div key={s.label} className="card p-4">
             <p className="text-2xl font-semibold text-gray-900 capitalize">{s.value}</p>
             <p className="text-xs text-gray-500 mt-1">{s.label}</p>
           </div>
         ))}
+      </div>
+
+      {/* Demo callout */}
+      <div className="rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 mb-8">
+        <p className="text-sm text-teal-800 leading-relaxed">This is a live demonstration — Each module shows a workflow we can automate for your business. Every solution is customised to fit your existing tools, team, and processes.</p>
       </div>
 
       {/* Modules */}

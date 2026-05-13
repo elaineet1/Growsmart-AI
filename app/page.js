@@ -1,5 +1,67 @@
-// app/page.js — redirect root to dashboard
-import { redirect } from "next/navigation";
-export default function Home() {
-  redirect("/dashboard");
+"use client";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { FileText, Users, MessageCircle, Settings, ArrowRight, Zap } from "lucide-react";
+
+const MODULES = [
+  { href:"/content", icon:FileText, color:"bg-purple-50 text-purple-600 border-purple-100", title:"Content & Marketing Automation", desc:"AI generates LinkedIn posts, cold emails and proposals in seconds — and schedules them automatically.", actions:["LinkedIn post","Cold email","Proposal draft","Repurpose","Auto-schedule"] },
+  { href:"/leads", icon:Users, color:"bg-teal-50 text-teal-600 border-teal-100", title:"Lead Generation Automation", desc:"AI finds matching leads, scores them by fit, and writes personalised outreach — ready to send.", actions:["Find leads","ICP scoring","Write outreach","Export CSV"] },
+  { href:"/chatbot", icon:MessageCircle, color:"bg-blue-50 text-blue-600 border-blue-100", title:"Customer Service Automation", desc:"Upload your FAQ and get a 24/7 AI assistant that handles customer enquiries without any staff.", actions:["Upload FAQ","Live chat test","Embed on website","Telegram bot"] },
+  { href:"/ops", icon:Settings, color:"bg-amber-50 text-amber-600 border-amber-100", title:"Operations Automation", desc:"AI processes documents, summarises meetings, and handles routine admin — freeing your team for higher-value work.", actions:["Process docs","Meeting notes","Client check-in","Google Drive"] },
+];
+
+function getGreeting() {
+  const h = new Date().getHours();
+  return h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
 }
+
+export default function Dashboard() {
+  const { data: session } = useSession();
+  const firstName = session?.user?.name?.split(" ")[0] || "there";
+  return (
+    <div className="p-8">
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-6 h-6 bg-teal-600 rounded flex items-center justify-center">
+            <Zap size={13} className="text-white" />
+          </div>
+          <span className="text-xs font-medium text-teal-600 uppercase tracking-wider">GrowSmart AI</span>
+        </div>
+        <h1 className="text-2xl font-semibold text-gray-900">{getGreeting()}, {firstName}</h1>
+        <p className="text-gray-500 mt-1 text-sm">AI workflow automation for your business. Select a module to explore what we can build for you.</p>
+      </div>
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        {[{label:"Workflow modules",value:"4"},{label:"Powered by",value:"OpenAI"}].map(s => (
+          <div key={s.label} className="card p-4">
+            <p className="text-2xl font-semibold text-gray-900">{s.value}</p>
+            <p className="text-xs text-gray-500 mt-1">{s.label}</p>
+          </div>
+        ))}
+      </div>
+      <div className="card p-4 border-l-4 border-l-teal-500 mb-6 bg-teal-50">
+        <p className="text-sm font-medium text-teal-800 mb-1">This is a live demonstration</p>
+        <p className="text-xs text-teal-700 leading-relaxed">Each module shows a workflow we can automate for your business. Every solution is customised to fit your existing tools, team, and processes.</p>
+      </div>
+      <div className="grid grid-cols-2 gap-5">
+        {MODULES.map(mod => (
+          <Link key={mod.href} href={mod.href} className="card p-5 hover:shadow-md transition-shadow group block">
+            <div className="flex items-start justify-between mb-3">
+              <div className={`w-10 h-10 rounded-lg border flex items-center justify-center ${mod.color}`}>
+                <mod.icon size={18} />
+              </div>
+              <ArrowRight size={16} className="text-gray-300 group-hover:text-teal-500 transition-colors" />
+            </div>
+            <h2 className="font-semibold text-gray-900 mb-1">{mod.title}</h2>
+            <p className="text-xs text-gray-500 leading-relaxed mb-3">{mod.desc}</p>
+            <div className="flex flex-wrap gap-1">
+              {mod.actions.map(a => (
+                <span key={a} className="text-[10px] px-2 py-0.5 bg-gray-100 text-gray-500 rounded-full">{a}</span>
+              ))}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+

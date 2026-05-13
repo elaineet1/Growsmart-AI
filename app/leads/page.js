@@ -63,8 +63,8 @@ export default function LeadsPage() {
           <Users size={16} className="text-teal-500" />
           <span className="text-xs font-medium text-teal-600 uppercase tracking-wide">Module 2</span>
         </div>
-        <h1 className="module-title">Lead Generator</h1>
-        <p className="module-sub">Find Singapore leads matching your ICP and write personalised outreach.</p>
+        <h1 className="module-title">Lead Generation Automation</h1>
+        <p className="module-sub">AI finds, scores and writes outreach for matching leads — your sales team only talks to the right people.</p>
       </div>
 
       <div className="flex gap-1 p-1 bg-gray-100 rounded-lg mb-6 w-fit">

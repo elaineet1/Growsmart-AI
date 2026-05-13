@@ -75,8 +75,8 @@ export default function ContentPage() {
           <FileText size={16} className="text-purple-500" />
           <span className="text-xs font-medium text-purple-600 uppercase tracking-wide">Module 1</span>
         </div>
-        <h1 className="module-title">Content Engine</h1>
-        <p className="module-sub">Generate posts, emails and proposals for your Singapore SME clients.</p>
+        <h1 className="module-title">Content & Marketing Automation</h1>
+        <p className="module-sub">AI generates content and schedules it automatically — no copywriter or marketing coordinator needed.</p>
       </div>
 
       {/* Tabs */}

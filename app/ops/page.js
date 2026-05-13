@@ -53,8 +53,8 @@ export default function OpsPage() {
           <Settings size={16} className="text-amber-500" />
           <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">Module 4</span>
         </div>
-        <h1 className="module-title">Ops Tools</h1>
-        <p className="module-sub">Process documents, schedule check-ins, and turn meeting notes into action items.</p>
+        <h1 className="module-title">Operations Automation</h1>
+        <p className="module-sub">AI processes documents, summarises meetings and handles routine admin — freeing your team for higher-value work.</p>
       </div>
 
       <div className="flex gap-1 p-1 bg-gray-100 rounded-lg mb-6 w-fit">
