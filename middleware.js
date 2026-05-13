@@ -1,7 +1,10 @@
-// middleware.js
-// Redirects unauthenticated users to /login for all protected routes
+import { withAuth } from "next-auth/middleware";
 
-export { default } from "next-auth/middleware";
+export default withAuth({
+  pages: {
+    signIn: "/login",
+  },
+});
 
 export const config = {
   matcher: [
